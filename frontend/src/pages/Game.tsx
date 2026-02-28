@@ -1,10 +1,24 @@
 import { useEffect, useState } from "react";
 import useSurveillance from "../hooks/Surveillance";
 import { MapContainer, TileLayer, useMap } from "react-leaflet";
+import L from "leaflet";
 
-function MapController() {
+function MapController({ onClick, onReset }: GameMapContainer) {
     const map = useMap();
-    
+    useEffect(() => {
+        const onMapClick = (event: L.LeafletMouseEvent) => {
+            const lat = Math.max(-90, Math.min(90, event.latlng.lat));
+            const lng = Math.max(-180, Math.min(180, event.latlng.lng));
+            onClick([lat, lng]);
+        };
+        map.on("click", onMapClick);
+    }, [map, onClick]);
+
+    useEffect(() => {
+        onReset(() => {
+            map.fitBounds()
+        });
+    }, [map]);
     return null;
 }
 
