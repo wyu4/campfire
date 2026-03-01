@@ -1,0 +1,60 @@
+@use "./Theme.scss" as *;
+
+.story {
+    position: absolute;
+    width: 100vw;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+}
+
+.slide {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    img {
+        aspect-ratio: 16 / 9;
+        width: 100vw;
+    }
+
+    .dialogue {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 2vw;
+        background-color: #0000008d;
+        p {
+            font-size: 3vw;
+            color: #ffffff;
+        }
+    }
+
+    .cover {
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 30;
+        background-color: #000000;
+        pointer-events: none;
+    }
+}
+
+.slide .tutorial {
+    background-color: #000000;
+}
