@@ -7,6 +7,7 @@ const Slide = forwardRef<HTMLDivElement, Slide>(
     ({ dialogue, src, onSlideFinish }, forwardRef) => {
         const slideRef = useRef<HTMLDivElement>(null);
         const [skipped, setSkipped] = useState(false);
+        const [loaded, setLoaded] = useState(false);
 
         const handleSlideFinish = () => {
             gsap.to(".cover", {
@@ -18,6 +19,7 @@ const Slide = forwardRef<HTMLDivElement, Slide>(
         };
 
         useEffect(() => {
+            if (!loaded) return;
             const skip = () => {
                 if (skipped) {
                     handleSlideFinish();
@@ -41,10 +43,11 @@ const Slide = forwardRef<HTMLDivElement, Slide>(
                 window.removeEventListener("click", skip);
                 window.removeEventListener("keydown", spaceSkip);
             };
-        }, [skipped, onSlideFinish]);
+        }, [loaded, skipped, onSlideFinish]);
 
         useGSAP(
             () => {
+                if (!loaded) return;
                 gsap.to(".cover", {
                     opacity: 0,
                     duration: 0.25,
@@ -52,13 +55,14 @@ const Slide = forwardRef<HTMLDivElement, Slide>(
                 });
             },
             {
-                dependencies: [],
+                dependencies: [loaded],
                 scope: slideRef,
             },
         );
 
         useGSAP(
             () => {
+                if (!loaded) return;
                 const splitDialogue = SplitText.create(".dialogue P", {
                     type: "words chars",
                 });
@@ -91,7 +95,7 @@ const Slide = forwardRef<HTMLDivElement, Slide>(
                 });
             },
             {
-                dependencies: [skipped],
+                dependencies: [loaded, skipped],
                 scope: slideRef,
             },
         );
@@ -107,7 +111,7 @@ const Slide = forwardRef<HTMLDivElement, Slide>(
                     }
                 }}
             >
-                <img src={src} />
+                <img src={src} onLoad={() => setLoaded(true)} />
                 <div className="dialogue">
                     <p>{dialogue}</p>
                 </div>
@@ -123,9 +127,10 @@ export const TutorialSlide = forwardRef<HTMLDivElement, Slide>(
         const [skipped, setSkipped] = useState(false);
         const [dialogue, setDialogue] = useState("");
         const [phase, setPhase] = useState(0);
-        const [showing, setShowing] = useState(false);
+        const [loaded, setLoaded] = useState(false);
 
         useEffect(() => {
+            if (!loaded) return;
             const skip = () => {
                 if (skipped) {
                     setPhase((prev) => prev + 1);
@@ -149,10 +154,11 @@ export const TutorialSlide = forwardRef<HTMLDivElement, Slide>(
                 window.removeEventListener("click", skip);
                 window.removeEventListener("keydown", spaceSkip);
             };
-        }, [skipped, onSlideFinish]);
+        }, [loaded, skipped, onSlideFinish]);
 
         useGSAP(
             () => {
+                if (!loaded) return;
                 gsap.to(".cover", {
                     opacity: 0,
                     duration: 0.25,
@@ -160,13 +166,14 @@ export const TutorialSlide = forwardRef<HTMLDivElement, Slide>(
                 });
             },
             {
-                dependencies: [],
+                dependencies: [loaded],
                 scope: slideRef,
             },
         );
 
         useGSAP(
             () => {
+                if (!loaded) return;
                 if (phase == 0) {
                     setDialogue("The footage will be shown on his computer.");
                     gsap.to(".image", {
@@ -204,14 +211,14 @@ export const TutorialSlide = forwardRef<HTMLDivElement, Slide>(
                 setSkipped(false);
             },
             {
-                dependencies: [phase],
+                dependencies: [loaded, phase],
                 scope: slideRef,
             },
         );
 
         useGSAP(
             () => {
-                if (dialogue == "") return;
+                if (!loaded || dialogue == "") return;
                 const splitDialogue = SplitText.create(".dialogue P", {
                     type: "words chars",
                 });
@@ -247,7 +254,7 @@ export const TutorialSlide = forwardRef<HTMLDivElement, Slide>(
                 };
             },
             {
-                dependencies: [skipped, dialogue],
+                dependencies: [loaded, skipped, dialogue],
                 scope: slideRef,
             },
         );
@@ -263,7 +270,11 @@ export const TutorialSlide = forwardRef<HTMLDivElement, Slide>(
                     }
                 }}
             >
-                <img className="image" src={src} />
+                <img
+                    className="image"
+                    src={src}
+                    onLoad={() => setLoaded(true)}
+                />
                 <div className="dialogue">
                     <p key={dialogue}>{dialogue}</p>
                 </div>

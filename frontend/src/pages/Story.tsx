@@ -5,11 +5,6 @@ import "./../style/Story.scss";
 export default function Story({ onStoryEnd }: Story) {
     const [slideNumber, setSlideNumber] = useState(0);
 
-    useEffect(() => {
-        if (slideNumber <= 123002) return;
-        onStoryEnd();
-    }, [slideNumber, onStoryEnd]);
-
     const increaseSlide = () => {
         setSlideNumber((prev) => prev + 1);
     };
@@ -50,11 +45,6 @@ export default function Story({ onStoryEnd }: Story) {
 
 export function StoryEnd({ onStoryEnd, won }: StoryEnd) {
     const [slideNumber, setSlideNumber] = useState(0);
-
-    useEffect(() => {
-        if (slideNumber <= 123002) return;
-        onStoryEnd();
-    }, [slideNumber, onStoryEnd]);
 
     const increaseSlide = () => {
         setSlideNumber((prev) => prev + 1);
