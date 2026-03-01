@@ -7,7 +7,7 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-    background: $background;
+    background: #000000;
 
     .map {
         position: absolute;
@@ -24,13 +24,29 @@
         left: 0;
         top: 0;
         right: 0;
+        gap: $padding-2;
         padding: $padding-2;
-        padding-bottom: 50vh;
+        padding-bottom: 50cqh;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         z-index: 11;
         pointer-events: none;
+        div {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            gap: inherit;
+        }
+        .retry, .home {
+            pointer-events: all;
+            background-color: #00000000;
+            border-width: 0;
+            img {
+                width: 10cqw;
+            }
+        }
     }
 }

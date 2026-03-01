@@ -284,4 +284,33 @@ export const TutorialSlide = forwardRef<HTMLDivElement, Slide>(
     },
 );
 
+export const WinSlide = ({ onSlideFinish }: Slide) => {
+    const [src, setSrc] = useState<
+        "/AlleywayPolice1.webp" | "/AlleywayPolice2.webp"
+    >("/AlleywayPolice1.webp");
+
+    useEffect(() => {
+        const id = setInterval(() => {
+            setSrc((prev) => {
+                if (prev === "/AlleywayPolice1.webp") {
+                    return "/AlleywayPolice2.webp";
+                }
+                return "/AlleywayPolice1.webp";
+            });
+        }, 500);
+
+        return () => {
+            clearInterval(id);
+        };
+    }, []);
+
+    return (
+        <Slide
+            src={src}
+            onSlideFinish={onSlideFinish}
+            dialogue="Harvey successfully located the wereabouts of the cartel, and all members have been apprehended!"
+        />
+    );
+};
+
 export default Slide;

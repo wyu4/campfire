@@ -6,5 +6,7 @@ declare type ResultsMapController = {
 declare type Results = {
     guess: number[] | undefined;
     answer: number[];
-    won: boolean
+    won: boolean;
 };
+
+declare type LeaveType = "Home" | "Retry" | "None";
