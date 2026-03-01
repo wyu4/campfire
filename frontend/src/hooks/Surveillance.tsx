@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { haversineDistance } from "../utils/Coordinates";
+import type { LatLngExpression } from "leaflet";
 
 const apiUrl = "https://traffic.ottawa.ca/map/service/camera";
 
@@ -13,8 +14,6 @@ export default function useSurveillance(reroll: number): SurveillanceHook {
     });
     const [url, setUrl] = useState<string>("");
     const [feedRef, setFeedRef] = useState<string>(url);
-    const [distance, setDistance] = useState<number | undefined>(undefined);
-    const [guess, setGuess] = useState<number[] | undefined>(undefined);
 
     useEffect(() => {
         fetch(apiUrl)
@@ -39,17 +38,6 @@ export default function useSurveillance(reroll: number): SurveillanceHook {
     }, [currentData]);
 
     useEffect(() => {
-        if (guess === undefined || guess.length < 2) return;
-
-        setDistance(
-            haversineDistance(guess, [
-                currentData.latitude,
-                currentData.longitude,
-            ]),
-        );
-    }, [currentData, guess]);
-
-    useEffect(() => {
         const updateFeed = () => setFeedRef(`${url}&t=${Date.now()}`);
         const refreshId = setInterval(updateFeed, 10e3);
         updateFeed();
@@ -58,9 +46,16 @@ export default function useSurveillance(reroll: number): SurveillanceHook {
         };
     }, [url]);
 
+    const setGuess = (guess: number[]): number => {
+        if (guess.length < 2) return 0;
+        return haversineDistance(guess, [
+            currentData.latitude,
+            currentData.longitude,
+        ]);
+    };
+
     return {
         src: feedRef,
-        distance: distance,
         setGuess: setGuess,
         status: status,
     };

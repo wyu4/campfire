@@ -1,0 +1,8 @@
+@use "./Theme.scss" as *;
+
+:root {
+    overflow-x: hidden;
+    overflow-y: hidden;
+    inset: 0;
+    padding: 0;
+}

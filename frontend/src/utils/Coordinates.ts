@@ -1,3 +1,5 @@
+import type { LatLngBoundsExpression } from "leaflet";
+
 const earthRadius = 6371e6;
 const degreesToRadians = Math.PI / 180.0;
 
@@ -15,3 +17,13 @@ export function haversineDistance(point1: number[], point2: number[]) {
         cos(lat1) * cos(lat2) * sin2((lng2 - lng1) / 2);
     return 2 * earthRadius * asin(Math.sqrt(theta));
 }
+
+export const WorldBounds: LatLngBoundsExpression = [
+    [-90, -180],
+    [90, 180],
+];
+
+export const OttawaBounds: LatLngBoundsExpression = [
+    [45, -76.6],
+    [45.5, -75.3],
+];
