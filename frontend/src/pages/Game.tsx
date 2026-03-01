@@ -104,6 +104,7 @@ export default function Game({ onResults }: Game) {
                 className="map"
                 attributionControl={false}
                 maxBounds={WorldBounds}
+                doubleClickZoom={false}
             >
                 <TileLayer url="https://tile.openstreetmap.org/{z}/{x}/{y}.png" />
                 <MapController
