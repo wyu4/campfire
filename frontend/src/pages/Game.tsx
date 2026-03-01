@@ -101,7 +101,7 @@ export default function Game({ onResults }: Game) {
                 attributionControl={false}
                 maxBounds={WorldBounds}
             >
-                <TileLayer url="https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png" />
+                <TileLayer url="https://tile.openstreetmap.org/{z}/{x}/{y}.png" />
                 <MapController
                     onClick={onClick}
                     onReset={onResetFunctionDefined}

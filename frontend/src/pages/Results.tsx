@@ -17,12 +17,12 @@ import Theme from "./../style/Theme.module.scss";
 
 const guessIcon = new L.Icon({
     iconUrl: "/Marker.webp",
-    iconSize: [50, 50],
+    iconSize: [150, 150],
 });
 
 const answerIcon = new L.Icon({
     iconUrl: "/Marker2.webp",
-    iconSize: [50, 50],
+    iconSize: [150, 150],
 });
 
 const ResultsMapController = ({ guess, answer }: ResultsMapController) => {
@@ -129,7 +129,7 @@ export default function Results({ guess, answer, won }: Results) {
                 attributionControl={false}
                 maxBounds={WorldBounds}
             >
-                <TileLayer url="https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png" />
+                <TileLayer url="https://tile.openstreetmap.org/{z}/{x}/{y}.png" />
                 <ResultsMapController guess={guess} answer={answer} />
             </MapContainer>
             <div className="overlay">
