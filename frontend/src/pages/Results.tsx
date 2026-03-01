@@ -5,10 +5,15 @@ import {
     OttawaBounds,
     WorldBounds,
 } from "../utils/CoordinateUtils";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import type { LatLngExpression } from "leaflet";
 import L from "leaflet";
 import "./../style/Results.scss";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { SplitText } from "gsap/all";
+
+import Theme from "./../style/Theme.module.scss";
 
 const guessIcon = new L.Icon({
     iconUrl: "/Marker.webp",
@@ -87,9 +92,38 @@ const ResultsMapController = ({ guess, answer }: ResultsMapController) => {
     return null;
 };
 
-export default function Results({ guess, answer }: Results) {
+export default function Results({ guess, answer, won }: Results) {
+    const resultsRef = useRef<HTMLDivElement>(null);
+
+    useGSAP(
+        () => {
+            const title = SplitText.create(".title", {
+                type: "chars",
+            });
+
+            gsap.set(title.chars, {
+                scale: 0,
+                opacity: 0,
+                ease: "power2.out",
+            });
+
+            const tl = gsap.timeline();
+            tl.to(title.chars, {
+                scale: 1,
+                opacity: 1,
+                color: won ? Theme["success"] : Theme["fail"],
+                duration: 0.5,
+                stagger: 0.05,
+            });
+        },
+        {
+            dependencies: [won],
+            scope: resultsRef,
+        },
+    );
+
     return (
-        <div className="results">
+        <div className="results" ref={resultsRef}>
             <MapContainer
                 className="map"
                 attributionControl={false}
@@ -98,6 +132,11 @@ export default function Results({ guess, answer }: Results) {
                 <TileLayer url="https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png" />
                 <ResultsMapController guess={guess} answer={answer} />
             </MapContainer>
+            <div className="overlay">
+                <h2 className="title">
+                    {won ? "Mission Success" : "Mission Failed"}
+                </h2>
+            </div>
         </div>
     );
 }

@@ -16,7 +16,11 @@ function App() {
             {currentPage === "Game" ? (
                 <Game onResults={onResults} />
             ) : currentPage === "Results" ? (
-                <Results answer={results!.answer} guess={results!.guess} />
+                <Results
+                    answer={results!.answer}
+                    guess={results!.guess}
+                    won={results!.won}
+                />
             ) : null}
         </>
     );

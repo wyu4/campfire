@@ -10,7 +10,7 @@ const winAccuracy = 1; // In KILOMETERS
 
 const markerIcon = L.icon({
     iconUrl: "/Marker.webp",
-    iconSize: [100, 100],
+    iconSize: [150, 150],
 });
 
 function MapController({ onClick, onReset }: GameMapContainer) {
@@ -79,6 +79,7 @@ export default function Game({ onResults }: Game) {
         onResults({
             guess: markerPosition as number[],
             answer: answer,
+            won: getDistance(markerPosition as number[]) <= winAccuracy,
         });
     }, [triesLeft, markerPosition, answer]);
 
@@ -87,28 +88,27 @@ export default function Game({ onResults }: Game) {
             <div className="feed-panel">
                 {src !== "" ? <img className="feed" src={src} /> : null}
             </div>
-            <div className="map-container">
-                <div>
-                    <p>
-                        {accuracy === undefined
-                            ? "Place a marker to start"
-                            : `Accuracy: ${accuracy.toPrecision(2)}km`}
-                    </p>
-                    <p>{`Tries Left: ${triesLeft}`}</p>
-                </div>
-                <MapContainer
-                    className="map"
-                    attributionControl={false}
-                    maxBounds={WorldBounds}
-                >
-                    <TileLayer url="https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png" />
-                    <MapController
-                        onClick={onClick}
-                        onReset={onResetFunctionDefined}
-                    />
-                </MapContainer>
-                <PushButton onClick={resetMap.current}>Reset</PushButton>
+            <div className="game-data">
+                <p>
+                    {accuracy === undefined
+                        ? "Place a marker to start"
+                        : `Accuracy: ${accuracy.toPrecision(2)}km`}
+                </p>
+                <p>{`Tries Left: ${triesLeft}`}</p>
             </div>
+            <MapContainer
+                className="map"
+                attributionControl={false}
+                maxBounds={WorldBounds}
+            >
+                <TileLayer url="https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png" />
+                <MapController
+                    onClick={onClick}
+                    onReset={onResetFunctionDefined}
+                />
+            </MapContainer>
+            <PushButton className="reset" onClick={resetMap.current}>Reset</PushButton>
+            <img className="image" src="/ComputerBackground.webp" />
         </div>
     );
 }

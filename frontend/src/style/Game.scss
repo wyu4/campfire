@@ -2,32 +2,60 @@
 
 .game {
     position: absolute;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    top: 0;
-    left: 0;
     width: 100vw;
-    height: 100vh;
+    height: auto;
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
     background: $background;
     overflow-x: hidden;
     overflow-y: hidden;
+    aspect-ratio: 1920 / 1080;
     .feed {
-        position: relative;
+        position: absolute;
+        left: 9%;
+        top: 17%;
+        width: 50%;
+        min-height: 50%;
+        height: auto;
     }
-    .map-container {
-        position: relative;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        gap: $padding-3;
+    .map {
+        position: absolute;
+        top: 9%;
+        right: 3%;
+        width: 25%;
+        height: 340px;
+        z-index: 15;
+    }
+
+    .reset {
+        position: absolute;
+        right: 5%;
+        top: 60%;
+        font-size: 4rem;
+        z-index: 25;
+    }
+
+    .game-data {
+        position: absolute;
+        right: 5%;
+        top: 44.5%;
+        width: 20.5%;
         p {
             text-align: center;
+            font-size: 2.5rem;
         }
-        .map {
-            width: 20rem;
-            height: 20rem;
-        }
+        z-index: 78;
+    }
+
+    .image {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translateX(-50%) translateY(-50%);
+        width: 100vw;
+        aspect-ratio: 1920 / 1080;
+        pointer-events: none;
+        z-index: 20;
     }
 }
