@@ -7,7 +7,6 @@ import gsap from "gsap";
 export function Menu({ onPlay }: Menu) {
     const menuRef = useRef<HTMLDivElement>(null);
     const [playing, setPlaying] = useState(false);
-
     useGSAP(
         () => {
             if (playing) {
@@ -42,19 +41,21 @@ export function Menu({ onPlay }: Menu) {
                 scale: 0,
                 rotate: -10,
             });
-            gsap.timeline().to(".blob", {
-                scale: 1,
-                rotate: 0,
-                duration: 1,
-                ease: "back.out",
-                overwrite: "auto",
-            }).to(".play", {
-                scale: 1,
-                rotate: 0,
-                duration: 1,
-                ease: "back.out",
-                overwrite: "auto",
-            });
+            gsap.timeline()
+                .to(".blob", {
+                    scale: 1,
+                    rotate: 0,
+                    duration: 1,
+                    ease: "back.out",
+                    overwrite: "auto",
+                })
+                .to(".play", {
+                    scale: 1,
+                    rotate: 0,
+                    duration: 1,
+                    ease: "back.out",
+                    overwrite: "auto",
+                });
         },
         {
             dependencies: [playing],
@@ -68,7 +69,11 @@ export function Menu({ onPlay }: Menu) {
     return (
         <div ref={menuRef} className="menu">
             <img className="blob" src="/Titleblob.webp" />
-            <PushButton className="play" onClick={handlePlay} disabled={playing}>
+            <PushButton
+                className="play"
+                onClick={handlePlay}
+                disabled={playing}
+            >
                 <img src="/PlayButton.webp" width={"50%"} />
             </PushButton>
         </div>

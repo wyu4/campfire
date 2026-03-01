@@ -7,27 +7,19 @@ import { Menu } from "./pages/Menu";
 function App() {
     const [currentPage, setCurrentPage] = useState<Page>("Menu");
     const [results, setResults] = useState<Results | undefined>(undefined);
-    const audioRef = useRef<HTMLAudioElement>(null);
+    const gameAudio = useRef(new Audio("/game.mp3"));
 
     useEffect(() => {
-        if (audioRef.current === null) return;
-        if (currentPage === "Menu") {
-            audioRef.current.pause();
-        } else {
-            audioRef.current
-                .play()
-                .catch((err) => `Could not play audio: ${err}`);
+        if (currentPage !== "Menu") {
+            gameAudio.current.play();
+            return;
         }
-    }, [audioRef, currentPage]);
+        gameAudio.current.pause();
+        gameAudio.current.currentTime = 0;
+    }, [currentPage]);
 
     return (
         <div className="app">
-            <audio ref={audioRef} loop>
-                <source
-                    src="/crafty-crime-jonny-boyle-main-version-02-38-14.mp3"
-                    type="audio/mpeg"
-                />
-            </audio>
             {currentPage === "Menu" && (
                 <Menu onPlay={() => setCurrentPage("Story")} />
             )}{" "}
