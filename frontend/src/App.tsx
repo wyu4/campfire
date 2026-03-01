@@ -1,9 +1,25 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Game from "./pages/Game";
+import Results from "./pages/Results";
 
 function App() {
     const [currentPage, setCurrentPage] = useState<Page>("Game");
-    return <>{currentPage === "Game" ? <Game /> : null}</>;
+    const [results, setResults] = useState<Results | undefined>(undefined);
+
+    const onResults = (results: Results) => {
+        setResults(results);
+        setCurrentPage("Results");
+    };
+
+    return (
+        <>
+            {currentPage === "Game" ? (
+                <Game onResults={onResults} />
+            ) : currentPage === "Results" ? (
+                <Results answer={results!.answer} guess={results!.guess} />
+            ) : null}
+        </>
+    );
 }
 
 export default App;

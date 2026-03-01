@@ -45,7 +45,7 @@ export default function useSurveillance(reroll: number): SurveillanceHook {
         };
     }, [url]);
 
-    const setGuess = (guess: number[]): number => {
+    const getDistance = (guess: number[]): number => {
         if (guess.length < 2) return 0;
         return haversineDistance(guess, [
             currentData.latitude,
@@ -55,7 +55,8 @@ export default function useSurveillance(reroll: number): SurveillanceHook {
 
     return {
         src: feedRef,
-        setGuess: setGuess,
+        getDistance: getDistance,
+        answer: [currentData.latitude, currentData.longitude],
         status: status,
     };
 }

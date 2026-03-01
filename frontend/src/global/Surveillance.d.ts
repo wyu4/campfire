@@ -7,6 +7,7 @@ declare type Surveillance = {
 
 declare type SurveillanceHook = {
     src: string;
-    setGuess: (guess: number[]) => number;
+    getDistance: (guess: number[]) => number;
+    answer: number[];
     status: number;
 };

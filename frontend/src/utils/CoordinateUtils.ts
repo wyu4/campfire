@@ -1,7 +1,16 @@
 import type { LatLngBoundsExpression } from "leaflet";
 
-const earthRadius = 6371e6;
+const earthRadius = 6371; // In KILOMETERS
 const degreesToRadians = Math.PI / 180.0;
+
+export const midpoint = (latlng1: number[], latlng2: number[]) => {
+    const lat1 = latlng1[0];
+    const lon1 = latlng1[1];
+    const lat2 = latlng2[0];
+    const lon2 = latlng2[1];
+
+    return [(lat1 + lat2) / 2, (lon1 + lon2) / 2];
+};
 
 export function haversineDistance(point1: number[], point2: number[]) {
     const asin = Math.asin;

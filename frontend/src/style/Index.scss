@@ -7,6 +7,12 @@
     padding: 0;
 }
 
-button {
-    
+h1, h2, button, a, p {
+    margin-block: 0;
+}
+
+button,
+p {
+    font-family: $font;
+    font-size: 2rem;
 }

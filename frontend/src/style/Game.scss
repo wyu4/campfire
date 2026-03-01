@@ -12,22 +12,22 @@
     background: $background;
     overflow-x: hidden;
     overflow-y: hidden;
-}
-
-.game .feed {
-    position: relative;
-}
-
-.game .map-container {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    gap: $padding-3;
-}
-
-.game .map-container .map {
-    width: 20rem;
-    height: 20rem;
+    .feed {
+        position: relative;
+    }
+    .map-container {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: $padding-3;
+        p {
+            text-align: center;
+        }
+        .map {
+            width: 20rem;
+            height: 20rem;
+        }
+    }
 }

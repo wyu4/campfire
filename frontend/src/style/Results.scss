@@ -1,0 +1,23 @@
+@use "./Theme.scss" as *;
+
+.results {
+    position: absolute;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: $background;
+    overflow-x: hidden;
+    overflow-y: hidden;
+
+    .map {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+    }
+}

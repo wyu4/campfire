@@ -6,6 +6,8 @@ import { OttawaBounds, WorldBounds } from "../utils/CoordinateUtils";
 import "./../style/Game.scss";
 import PushButton from "../components/PushButton";
 
+const winAccuracy = 1; // In KILOMETERS
+
 const markerIcon = L.icon({
     iconUrl: "/Marker.webp",
     iconSize: [100, 100],
@@ -48,26 +50,37 @@ function MapController({ onClick, onReset }: GameMapContainer) {
     return null;
 }
 
-export default function Game() {
-    const { src, setGuess, status }: SurveillanceHook = useSurveillance(0);
-    const markerPosition = useRef<LatLngExpression | undefined>(undefined);
+export default function Game({ onResults }: Game) {
+    const { src, getDistance, answer, status }: SurveillanceHook =
+        useSurveillance(0);
+    const [markerPosition, setMarkerPosition] = useState<
+        LatLngExpression | undefined
+    >(undefined);
     const resetMap = useRef<() => void>(() => {});
+    const [accuracy, setAccuracy] = useState<number | undefined>(undefined);
+    const [triesLeft, setTriesLeft] = useState(5);
 
     const onClick = (latlng: number[]) => {
         if (latlng.length < 2) return;
-        markerPosition.current = latlng as LatLngExpression;
+        setMarkerPosition(latlng as LatLngExpression);
     };
     const onResetFunctionDefined = (resetFunction: () => void) => {
         resetMap.current = resetFunction;
     };
 
-    // useEffect(() => {
-    //     console.log(`New data: ${src}, ${status}`);
-    // }, [src, distance, status]);
+    useEffect(() => {
+        if (markerPosition === undefined) return;
+        setTriesLeft((prev) => prev - 1);
+        setAccuracy(getDistance(markerPosition as number[]));
+    }, [markerPosition]);
 
     useEffect(() => {
-        
-    }, [status]);
+        if (markerPosition === undefined || triesLeft > 0) return;
+        onResults({
+            guess: markerPosition as number[],
+            answer: answer,
+        });
+    }, [triesLeft, markerPosition, answer]);
 
     return (
         <div className="game">
@@ -75,16 +88,26 @@ export default function Game() {
                 {src !== "" ? <img className="feed" src={src} /> : null}
             </div>
             <div className="map-container">
+                <div>
+                    <p>
+                        {accuracy === undefined
+                            ? "Place a marker to start"
+                            : `Accuracy: ${accuracy.toPrecision(2)}km`}
+                    </p>
+                    <p>{`Tries Left: ${triesLeft}`}</p>
+                </div>
                 <MapContainer
                     className="map"
                     attributionControl={false}
                     maxBounds={WorldBounds}
                 >
                     <TileLayer url="https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png" />
-                    <MapController onClick={onClick} onReset={onResetFunctionDefined} />
+                    <MapController
+                        onClick={onClick}
+                        onReset={onResetFunctionDefined}
+                    />
                 </MapContainer>
                 <PushButton onClick={resetMap.current}>Reset</PushButton>
-                {/* <PushButton onClick={}>Set Pin</PushButton> */}
             </div>
         </div>
     );
