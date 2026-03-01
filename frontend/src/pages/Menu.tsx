@@ -12,14 +12,14 @@ export function Menu({ onPlay }: Menu) {
         () => {
             if (playing) {
                 gsap.to(".blob", {
-                    translateY: "100vh",
+                    translateY: "100cqh",
                     rotate: 20,
                     duration: 0.5,
                     ease: "sine.in",
                     overwrite: "auto",
                 });
                 gsap.to(".play", {
-                    translateY: "100vh",
+                    translateY: "100cqh",
                     rotate: -10,
                     delay: 0.25,
                     duration: 0.5,

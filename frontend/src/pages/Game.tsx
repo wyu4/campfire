@@ -107,7 +107,7 @@ export default function Game({ onResults }: Game) {
                     onReset={onResetFunctionDefined}
                 />
             </MapContainer>
-            <PushButton className="reset" onClick={resetMap.current}>Reset</PushButton>
+            <PushButton className="reset" onClick={resetMap.current}><img src="/ResetButton.webp" /></PushButton>
             <img className="image" src="/ComputerBackground.webp" />
         </div>
     );

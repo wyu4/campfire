@@ -17,12 +17,12 @@ import Theme from "./../style/Theme.module.scss";
 
 const guessIcon = new L.Icon({
     iconUrl: "/Marker.webp",
-    iconSize: [150, 150],
+    iconSize: [100, 100],
 });
 
 const answerIcon = new L.Icon({
     iconUrl: "/Marker2.webp",
-    iconSize: [150, 150],
+    iconSize: [100, 100],
 });
 
 const ResultsMapController = ({ guess, answer }: ResultsMapController) => {

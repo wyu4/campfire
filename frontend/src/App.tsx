@@ -22,12 +22,12 @@ function App() {
     };
 
     return (
-        <>
+        <div className="app">
             {currentPage === "Menu" && <Menu onPlay={onPlay} />}{" "}
             {currentPage === "Story" && <Story onStoryEnd={onStoryFinish} />}{" "}
             {currentPage === "Game" && <Game onResults={onResults} />}{" "}
             {currentPage === "Results" && <Results {...results!} />}
-        </>
+        </div>
     );
 }
 

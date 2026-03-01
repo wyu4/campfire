@@ -13,6 +13,18 @@ body {
     background-color: #000000;
 }
 
+.app {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    width: min(100vw, 177.78vh);
+    height: min(100vh, 56.23vw);
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    container-type: size
+}
+
 h1, h2, button, a, p {
     font-family: $font;
     margin-block: 0;

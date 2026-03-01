@@ -1,1 +1,1 @@
-declare type Page = "Menu" | "Story" | "Game" | "Results";
+declare type Page = "Menu" | "Story" | "Game" | "End" | "Results";
