@@ -129,7 +129,7 @@ export default function Results({ guess, answer, won }: Results) {
                 attributionControl={false}
                 maxBounds={WorldBounds}
             >
-                <TileLayer url="https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png" />
+                <TileLayer url="https://tile.openstreetmap.org/{z}/{x}/{y}.png" />
                 <ResultsMapController guess={guess} answer={answer} />
             </MapContainer>
             <div className="overlay">
