@@ -6,7 +6,7 @@ import { OttawaBounds, WorldBounds } from "../utils/CoordinateUtils";
 import "./../style/Game.scss";
 import PushButton from "../components/PushButton";
 
-const winAccuracy = 1; // In KILOMETERS
+const winAccuracy = 4; // In KILOMETERS
 
 const markerIcon = L.icon({
     iconUrl: "/Marker.webp",
@@ -75,11 +75,15 @@ export default function Game({ onResults }: Game) {
     }, [markerPosition]);
 
     useEffect(() => {
-        if (markerPosition === undefined || triesLeft > 0) return;
+        if (markerPosition === undefined) return;
+        const won = getDistance(markerPosition as number[]) <= winAccuracy;
+
+        if (triesLeft > 0 && !won) return;
+
         onResults({
             guess: markerPosition as number[],
             answer: answer,
-            won: getDistance(markerPosition as number[]) <= winAccuracy,
+            won: won,
         });
     }, [triesLeft, markerPosition, answer]);
 

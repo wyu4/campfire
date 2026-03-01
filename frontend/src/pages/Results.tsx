@@ -23,7 +23,7 @@ const guessIcon = new L.Icon({
 
 const answerIcon = new L.Icon({
     iconUrl: "/Marker2.webp",
-    iconSize: [100, 100],
+    iconSize: [50, 50],
 });
 
 const ResultsMapController = ({ guess, answer }: ResultsMapController) => {

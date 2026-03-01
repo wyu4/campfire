@@ -186,7 +186,7 @@ export const TutorialSlide = forwardRef<HTMLDivElement, Slide>(
                     });
                 } else if (phase == 1) {
                     setDialogue(
-                        "So after assesing the scene, click on the map where you believe it is. Make 5 guesses within 4 km of the actual location in order to have gathered enough intel to take down the cartel and save bananas worldwide!",
+                        "So after assesing the scene, click on the map where you believe it is. You have 5 tries to guess within 4 km of the actual location in order to have gathered enough intel to take down the cartel and save bananas worldwide!",
                     );
                     gsap.to(".image", {
                         scale: 1.6,
