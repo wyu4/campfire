@@ -5,13 +5,14 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-    top: 0;
-    left: 0;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
     width: 100vw;
-    height: 100vh;
     background: $background;
     overflow-x: hidden;
     overflow-y: hidden;
+    aspect-ratio: 16 /9;
 
     .map {
         position: absolute;
@@ -24,14 +25,17 @@
 
     .overlay {
         position: absolute;
+        background-image: linear-gradient(to bottom, #000000, #00000000);
         left: 0;
         top: 0;
         right: 0;
         padding: $padding-2;
+        padding-bottom: 50vh;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         z-index: 11;
+        pointer-events: none;
     }
 }
