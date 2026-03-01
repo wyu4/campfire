@@ -1,7 +1,6 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { forwardRef, useRef, useState } from "react";
-import Theme from "./../styles/Theme.module.scss";
 
 const PushButton = forwardRef<HTMLButtonElement, PushButtonAttributes>(
     (
@@ -33,7 +32,6 @@ const PushButton = forwardRef<HTMLButtonElement, PushButtonAttributes>(
                         scale: 0.9,
                         duration: 0.3,
                         ease: "power2.out",
-                        borderColor: Theme.border_1,
                         overwrite: "auto",
                     });
                     return;
@@ -41,8 +39,6 @@ const PushButton = forwardRef<HTMLButtonElement, PushButtonAttributes>(
                 gsap.to(buttonRef.current, {
                     scale: 1.1,
                     duration: 0.3,
-                    ease: "power2.out",
-                    borderColor: "white",
                     overwrite: "auto",
                 });
             } else {
@@ -51,7 +47,6 @@ const PushButton = forwardRef<HTMLButtonElement, PushButtonAttributes>(
                     scale: 1,
                     duration: 0.3,
                     ease: "power2.out",
-                    borderColor: Theme.border_1,
                     overwrite: "auto",
                 });
             }

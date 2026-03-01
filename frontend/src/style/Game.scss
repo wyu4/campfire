@@ -23,7 +23,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-
+    flex-direction: column;
+    gap: $padding-3;
 }
 
 .game .map-container .map {

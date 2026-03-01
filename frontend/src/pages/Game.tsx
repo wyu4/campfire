@@ -2,8 +2,9 @@ import { useEffect, useRef, useState } from "react";
 import useSurveillance from "../hooks/Surveillance";
 import { MapContainer, TileLayer, useMap } from "react-leaflet";
 import L, { type LatLngExpression } from "leaflet";
-import { OttawaBounds, WorldBounds } from "../utils/Coordinates";
+import { OttawaBounds, WorldBounds } from "../utils/CoordinateUtils";
 import "./../style/Game.scss";
+import PushButton from "../components/PushButton";
 
 const markerIcon = L.icon({
     iconUrl: "/Marker.webp",
@@ -48,9 +49,7 @@ function MapController({ onClick, onReset }: GameMapContainer) {
 }
 
 export default function Game() {
-    const [gameNumber, setGameNumber] = useState(0);
-    const { src, setGuess, status }: SurveillanceHook =
-        useSurveillance(gameNumber);
+    const { src, setGuess, status }: SurveillanceHook = useSurveillance(0);
     const markerPosition = useRef<LatLngExpression | undefined>(undefined);
     const resetMap = useRef<() => void>(() => {});
 
@@ -58,13 +57,17 @@ export default function Game() {
         if (latlng.length < 2) return;
         markerPosition.current = latlng as LatLngExpression;
     };
-    const onReset = (resetFunction: () => void) => {
+    const onResetFunctionDefined = (resetFunction: () => void) => {
         resetMap.current = resetFunction;
     };
 
     // useEffect(() => {
     //     console.log(`New data: ${src}, ${status}`);
     // }, [src, distance, status]);
+
+    useEffect(() => {
+        
+    }, [status]);
 
     return (
         <div className="game">
@@ -78,8 +81,10 @@ export default function Game() {
                     maxBounds={WorldBounds}
                 >
                     <TileLayer url="https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png" />
-                    <MapController onClick={onClick} onReset={onReset} />
+                    <MapController onClick={onClick} onReset={onResetFunctionDefined} />
                 </MapContainer>
+                <PushButton onClick={resetMap.current}>Reset</PushButton>
+                {/* <PushButton onClick={}>Set Pin</PushButton> */}
             </div>
         </div>
     );

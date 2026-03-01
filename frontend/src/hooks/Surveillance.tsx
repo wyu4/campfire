@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { haversineDistance } from "../utils/Coordinates";
-import type { LatLngExpression } from "leaflet";
+import { useEffect, useState } from "react";
+import { haversineDistance } from "../utils/CoordinateUtils";
 
 const apiUrl = "https://traffic.ottawa.ca/map/service/camera";
 
