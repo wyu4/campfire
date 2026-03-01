@@ -2,10 +2,15 @@ import { useEffect, useState } from "react";
 import Game from "./pages/Game";
 import Results from "./pages/Results";
 import Story from "./pages/Story";
+import { Menu } from "./pages/Menu";
 
 function App() {
-    const [currentPage, setCurrentPage] = useState<Page>("Story");
+    const [currentPage, setCurrentPage] = useState<Page>("Menu");
     const [results, setResults] = useState<Results | undefined>(undefined);
+
+    const onPlay = () => {
+        setCurrentPage("Story");
+    };
 
     const onStoryFinish = () => {
         setCurrentPage("Game");
@@ -18,17 +23,10 @@ function App() {
 
     return (
         <>
-            {currentPage === "Story" ? (
-                <Story onStoryEnd={onStoryFinish} />
-            ) : currentPage === "Game" ? (
-                <Game onResults={onResults} />
-            ) : currentPage === "Results" ? (
-                <Results
-                    answer={results!.answer}
-                    guess={results!.guess}
-                    won={results!.won}
-                />
-            ) : null}
+            {currentPage === "Menu" && <Menu onPlay={onPlay} />}{" "}
+            {currentPage === "Story" && <Story onStoryEnd={onStoryFinish} />}{" "}
+            {currentPage === "Game" && <Game onResults={onResults} />}{" "}
+            {currentPage === "Results" && <Results {...results!} />}
         </>
     );
 }

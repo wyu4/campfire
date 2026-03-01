@@ -181,15 +181,7 @@ export const TutorialSlide = forwardRef<HTMLDivElement, Slide>(
                     setDialogue(
                         "So after assesing the scene, click on the map where you believe it is. Make 5 guesses within 4 km of the actual location in order to have gathered enough intel to take down the cartel and save bananas worldwide!",
                     );
-                    const tl = gsap.timeline();
-                    tl.to(".image", {
-                        scale: 1,
-                        translateX: 0,
-                        translateY: 0,
-                        duration: 0.5,
-                        ease: "sine.inOut",
-                        overwrite: "auto",
-                    }).to(".image", {
+                    gsap.to(".image", {
                         scale: 1.6,
                         translateX: "-25%",
                         translateY: "20%",

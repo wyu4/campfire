@@ -1,0 +1,29 @@
+@use "./Theme.scss" as *;
+
+.menu {
+    position: absolute;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    width: 100vw;
+    background-color: #fff6c7;
+    overflow: hidden;
+
+    .blob {
+        width: 80vw;
+    }
+
+    .play {
+        position: absolute;
+        padding: 0;
+        aspect-ratio: 2/1;
+        width: 25%;
+        right: 10%;
+        bottom: 5%;
+        background-color: #00000000;
+        border-width: 0;
+    }
+}
